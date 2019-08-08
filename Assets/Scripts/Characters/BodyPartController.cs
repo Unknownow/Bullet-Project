@@ -15,8 +15,11 @@ public class BodyPartController : MonoBehaviour {
 	// Use this for initialization
 	void Start () {
         _bodyJoint = gameObject.GetComponent<HingeJoint2D>();
+        if (!_bodyJoint)
+            return;
         _upperAngle = _bodyJoint.limits.max;
         _lowerAngle = _bodyJoint.limits.min;
+        ChangeJointLimitBaseOnRotation();
         SetJointLimit(_initAngle, _initAngle);
     }
 	
@@ -24,7 +27,8 @@ public class BodyPartController : MonoBehaviour {
 	void Update () {
         if (Input.GetKeyDown(KeyCode.Space))
         {
-            SetJointLimit(_upperAngle, _lowerAngle);
+            if(_bodyJoint != null)
+                SetJointLimit(_upperAngle, _lowerAngle);
         }
 	}
 
@@ -36,8 +40,14 @@ public class BodyPartController : MonoBehaviour {
         _bodyJoint.limits = temp;
     }
 
-    private float AngleCal(Vector2 v1, Vector2 v2)
+    private void ChangeJointLimitBaseOnRotation()
     {
-        return Mathf.Atan2(v1.y - v2.y, v1.x - v2.x) * Mathf.Rad2Deg;
+        float angleRotation = transform.rotation.eulerAngles.z;
+        if (angleRotation > 180)
+            angleRotation -= 360;
+        Debug.Log(gameObject.name + " " + angleRotation);
+        _initAngle += angleRotation;
+        _upperAngle += angleRotation;
+        _lowerAngle += angleRotation;
     }
 }
