@@ -23,7 +23,6 @@ public class HandGunController : MonoBehaviour {
     {
         Vector2 mousePos = _mainCam.ScreenToWorldPoint(Input.mousePosition);
         float angle = AngleCal(mousePos, transform.position) + 90;
-        Debug.Log(angle);
         transform.rotation = Quaternion.Euler(transform.rotation.x, transform.rotation.y, angle);
     }
 
