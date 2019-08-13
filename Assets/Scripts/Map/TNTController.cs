@@ -18,7 +18,7 @@ public class TNTController : MonoBehaviour {
     {
         rb2d = gameObject.GetComponent<Rigidbody2D>();
         _canExplode = false;
-}
+    }
 
     private void OnTriggerStay2D(Collider2D collision)
     {

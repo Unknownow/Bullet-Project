@@ -8,6 +8,7 @@ TagManager:
   - Terrain
   - Bomb
   - Body Part
+  - Player Body Part
   layers:
   - Default
   - TransparentFX
