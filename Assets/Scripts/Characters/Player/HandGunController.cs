@@ -11,13 +11,18 @@ public class HandGunController : MonoBehaviour {
 
 	// Use this for initialization
 	void Start () {
-		
+		if(_mainCam == null)
+        {
+            _mainCam = GameObject.FindGameObjectWithTag("MainCamera").GetComponent<Camera>();
+        }
 	}
 	
 	// Update is called once per frame
 	void Update () {
         RotateHandByMouse();
 	}
+
+    
 
     private void RotateHandByMouse()
     {
