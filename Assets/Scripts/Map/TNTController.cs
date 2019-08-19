@@ -26,7 +26,7 @@ public class TNTController : MonoBehaviour {
             return;
         if (collision.CompareTag("Body Part"))
         {
-            ExplosionController temp = collision.GetComponent<ExplosionController>();
+            ExplosionOnBodyController temp = collision.GetComponent<ExplosionOnBodyController>();
             if (temp)
             {
                 temp.OnCollideExplosion(transform.position, _forceValue);
@@ -40,7 +40,7 @@ public class TNTController : MonoBehaviour {
             return;
         if (collision.CompareTag("Body Part"))
         {
-            ExplosionController temp = collision.GetComponent<ExplosionController>();
+            ExplosionOnBodyController temp = collision.GetComponent<ExplosionOnBodyController>();
             if (temp)
             {
                 temp.ReturnToNormalState();

@@ -2,9 +2,13 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class BodyController : MonoBehaviour {
-    public void ChangeCharacterToDynamic(Transform body)
+public class PlayerBodyController : BodyController {
+    [SerializeField]
+    protected RotateHandByTouch _handGun;
+
+    public new void ChangeCharacterToDynamic(Transform body)
     {
+        _handGun.enabled = false;
         for (int i = 0; i < body.childCount; i++)
         {
             Transform temp = body.GetChild(i);

@@ -5,23 +5,30 @@ using UnityEngine;
 public class BodyPartController : MonoBehaviour {
 
     [SerializeField]
-    private float _initAngle;
+    protected float _initAngle;
 
-    private float _upperAngle;
-    private float _lowerAngle;
-    private HingeJoint2D _bodyJoint;
+    [SerializeField]
+    protected BodyController _centerBody;
+
+    protected float _upperAngle;
+    protected float _lowerAngle;
+    protected HingeJoint2D _bodyJoint;
+    protected Rigidbody2D _rb2d;
 
 	void Start () {
         _bodyJoint = gameObject.GetComponent<HingeJoint2D>();
+        _rb2d = gameObject.GetComponent<Rigidbody2D>();
+
         if (!_bodyJoint)
             return;
         _upperAngle = _bodyJoint.limits.max;
         _lowerAngle = _bodyJoint.limits.min;
         ChangeJointLimitBaseOnRotation();
         SetJointLimit(_initAngle, _initAngle);
+
     }
 
-    private void SetJointLimit(float upper, float lower)
+    protected void SetJointLimit(float upper, float lower)
     {
         JointAngleLimits2D temp = new JointAngleLimits2D();
         temp.max = upper;
@@ -29,7 +36,7 @@ public class BodyPartController : MonoBehaviour {
         _bodyJoint.limits = temp;
     }
 
-    private void ChangeJointLimitBaseOnRotation()
+    protected void ChangeJointLimitBaseOnRotation()
     {
         float angleRotation = transform.rotation.eulerAngles.z;
         if (angleRotation > 180)
@@ -43,4 +50,16 @@ public class BodyPartController : MonoBehaviour {
         if (_bodyJoint != null)
             SetJointLimit(_upperAngle, _lowerAngle);
     }
+
+    public BodyController GetBodyController()
+    {
+        return _centerBody;
+    }
+
+    public void ApplyForceToThisBodyPart(Vector2 direction, float force)
+    {
+        _rb2d.AddForce(direction * force);
+    }
 }
+
+

@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class HandGunController : MonoBehaviour {
+public class RotateHandByTouch : MonoBehaviour {
 
     [SerializeField]
     private Camera _mainCam;
@@ -19,7 +19,10 @@ public class HandGunController : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-        RotateHandByMouse();
+        if (Input.GetKey(KeyCode.Mouse0))
+        {
+            RotateHandByMouse();
+        }
 	}
 
     

@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class ExplosionController : MonoBehaviour {
+public class ExplosionOnBodyController : MonoBehaviour {
 
 
     private bool _hasExploded;
