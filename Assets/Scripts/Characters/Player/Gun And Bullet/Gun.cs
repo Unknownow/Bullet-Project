@@ -4,6 +4,9 @@ using UnityEngine;
 
 public class Gun : MonoBehaviour {
     [SerializeField]
+    private int _numOfBullet;
+
+    [SerializeField]
     private GameObject _bulletPrefab;
 
     [SerializeField]
@@ -56,7 +59,11 @@ public class Gun : MonoBehaviour {
         }
         if (_isFiring)
         {
-            OnFiringBullet();
+            if(_numOfBullet > 0)
+            {
+                OnFiringBullet();
+                _numOfBullet -= 1;
+            }
             _isFiring = false;
         }
 	}
@@ -70,6 +77,11 @@ public class Gun : MonoBehaviour {
         tempAngle = Quaternion.Euler(temp);
         GameObject bullet = Instantiate(_bulletPrefab, _gunPoint.position, tempAngle);
         bullet.GetComponent<BulletController>().Shoot(_force);
+    }
+
+    public void SetNumOfBullet(int bullets)
+    {
+        this._numOfBullet = bullets;
     }
 }
 

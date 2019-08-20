@@ -8,6 +8,10 @@ public class PlayerBodyController : BodyController {
 
     public new void ChangeCharacterToDynamic(Transform body)
     {
+        if (_isDead)
+            return;
+        _isDead = true;
+        transform.parent.GetComponent<CharacterManager>().OnCharacterDie();
         _handGun.enabled = false;
         for (int i = 0; i < body.childCount; i++)
         {

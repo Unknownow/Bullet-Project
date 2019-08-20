@@ -3,17 +3,23 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class BodyController : MonoBehaviour {
+    protected bool _isDead;
+
     public void ChangeCharacterToDynamic(Transform body)
     {
+        if (_isDead)
+            return;
+        _isDead = true;
+        transform.parent.GetComponent<CharacterManager>().OnCharacterDie();
         for (int i = 0; i < body.childCount; i++)
         {
-            Transform temp = body.GetChild(i);
-            if (temp.GetComponent<BodyPartController>() != null)
+            Transform bodyPart = body.GetChild(i);
+            if (bodyPart.GetComponent<BodyPartController>() != null)
             {
-                temp.GetComponent<BodyPartController>().ReturnJointToNormalState();
+                bodyPart.GetComponent<BodyPartController>().ReturnJointToNormalState();
             }
-            temp.GetComponent<Rigidbody2D>().bodyType = RigidbodyType2D.Dynamic;
-            ChangeCharacterToDynamic(temp);
+            bodyPart.GetComponent<Rigidbody2D>().bodyType = RigidbodyType2D.Dynamic;
+            ChangeCharacterToDynamic(bodyPart);
         }
     }
 }

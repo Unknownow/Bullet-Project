@@ -561,8 +561,8 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1837064274442286}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -0.31, y: -15.78, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalPosition: {x: 0.0061999997, y: 3.7300005, z: 0}
+  m_LocalScale: {x: 0.02, y: 1, z: 1}
   m_Children:
   - {fileID: 4752797764105760}
   - {fileID: 4461509703719438}
@@ -1432,6 +1432,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d56a54cd3f92348b9aaff3388868f6d5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _numOfBullet: 3
   _bulletPrefab: {fileID: 1321247651061206, guid: 8b1e90169154a214a981e7bd041c2916,
     type: 2}
   _laserLine: {fileID: 1971022550086062}

@@ -16,13 +16,17 @@ public class BulletInsideCollisionController : MonoBehaviour {
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if(collision.CompareTag("Body Part"))
+        if (collision.CompareTag("Body Part"))
         {
             BodyPartController thisBodyPart = collision.GetComponent<BodyPartController>();
-
             BodyController centerBody = thisBodyPart.GetBodyController();
-			centerBody.ChangeCharacterToDynamic(centerBody.transform.parent);
+            centerBody.ChangeCharacterToDynamic(centerBody.transform.parent);
             thisBodyPart.ApplyForceToThisBodyPart(_parentRigidbody2D.velocity, _forceApplyToBodyPart);
+        }
+        if (collision.CompareTag("Bomb"))
+        {
+            collision.GetComponent<Rigidbody2D>().bodyType = RigidbodyType2D.Static;
+            collision.GetComponent<TNTController>().TriggerBomb();
         }
     }
 }

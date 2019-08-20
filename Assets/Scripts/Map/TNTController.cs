@@ -73,5 +73,6 @@ public class TNTController : MonoBehaviour {
     public void TriggerBomb()
     {
         _isExploded = true;
+        StartCoroutine(DestroyTNTCrate());
     }
 }
