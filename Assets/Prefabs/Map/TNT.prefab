@@ -22,11 +22,27 @@ GameObject:
   - component: {fileID: 212647201943471076}
   - component: {fileID: 50965198334351598}
   - component: {fileID: 61584644808319370}
-  - component: {fileID: 58025830847653208}
   - component: {fileID: 114864940194873704}
-  m_Layer: 0
+  m_Layer: 12
   m_Name: TNT
   m_TagString: Bomb
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!1 &1839261656559712
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  serializedVersion: 5
+  m_Component:
+  - component: {fileID: 4745987241162580}
+  - component: {fileID: 58664819180983574}
+  - component: {fileID: 114262530249588914}
+  m_Layer: 15
+  m_Name: Effect Zone
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -37,11 +53,25 @@ Transform:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1648292469271090}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -3.8, y: -4.2, z: 0}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: -6.35, y: -16.12, z: 0}
   m_LocalScale: {x: 1.5, y: 1.5, z: 1}
-  m_Children: []
+  m_Children:
+  - {fileID: 4745987241162580}
   m_Father: {fileID: 0}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!4 &4745987241162580
+Transform:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1839261656559712}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 4423288801407852}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!50 &50965198334351598
@@ -64,12 +94,12 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 1
   m_Constraints: 0
---- !u!58 &58025830847653208
+--- !u!58 &58664819180983574
 CircleCollider2D:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1648292469271090}
+  m_GameObject: {fileID: 1839261656559712}
   m_Enabled: 1
   m_Density: 1
   m_Material: {fileID: 0}
@@ -78,7 +108,7 @@ CircleCollider2D:
   m_UsedByComposite: 0
   m_Offset: {x: 0, y: 0}
   serializedVersion: 2
-  m_Radius: 3
+  m_Radius: 5
 --- !u!61 &61584644808319370
 BoxCollider2D:
   m_ObjectHideFlags: 1
@@ -104,6 +134,17 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 2.25, y: 2.25}
   m_EdgeRadius: 0
+--- !u!114 &114262530249588914
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1839261656559712}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c504aeae64edf48898d043f2b974bcbf, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!114 &114864940194873704
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -115,8 +156,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 95ae5e18e29424d839e2f0da739a97c6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _forceValue: 10
+  _forceValueOnBody: 10
+  _forceValueOnBox: 100
   _minVelocityTrigger: 10
+  _delayTimeBeforeDestroy: 0.01
 --- !u!212 &212647201943471076
 SpriteRenderer:
   m_ObjectHideFlags: 1

@@ -6,21 +6,21 @@ public class ExplosionOnBodyController : MonoBehaviour {
 
 
     private bool _hasExploded;
-    private BodyController _bodyController;
+    private CenterBodypartController _bodyController;
 
     void Start()
     {
         _hasExploded = false;
-        _bodyController = gameObject.GetComponent<BodyController>();
+        _bodyController = gameObject.GetComponent<CenterBodypartController>();
     }
 
-    private void AddExplosiveForceToBodyPart(Transform bodyPart, Vector3 explosionPos, float forceValue)
+    private void AddExplosiveForceToBodyPart(Transform bodyPart, Vector3 explosiveSorcePos, float forceValue)
     {
         for (int i = 0; i < bodyPart.childCount; i++)
         {
             Transform temp = bodyPart.GetChild(i);
-            temp.GetComponent<Rigidbody2D>().AddForce((temp.position - explosionPos) * forceValue, ForceMode2D.Impulse);
-            AddExplosiveForceToBodyPart(temp, explosionPos, forceValue);
+            temp.GetComponent<Rigidbody2D>().AddForce((temp.position - explosiveSorcePos) * forceValue, ForceMode2D.Impulse);
+            AddExplosiveForceToBodyPart(temp, explosiveSorcePos, forceValue);
         }
     }
 
@@ -29,7 +29,7 @@ public class ExplosionOnBodyController : MonoBehaviour {
         if (_hasExploded)
             return;
         _hasExploded = true;
-        _bodyController.ChangeCharacterToDynamic(transform.parent);
+        _bodyController.OnCharacterDie(transform.parent);
         AddExplosiveForceToBodyPart(transform.parent, explosionPos, forceValue);
     }
 

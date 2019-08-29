@@ -19,14 +19,15 @@ public class BulletInsideCollisionController : MonoBehaviour {
         if (collision.CompareTag("Body Part"))
         {
             BodyPartController thisBodyPart = collision.GetComponent<BodyPartController>();
-            BodyController centerBody = thisBodyPart.GetBodyController();
-            centerBody.ChangeCharacterToDynamic(centerBody.transform.parent);
+            CenterBodypartController centerBody = thisBodyPart.GetCenterBodyPart();
+            centerBody.OnCharacterDie(centerBody.transform.parent);
             thisBodyPart.ApplyForceToThisBodyPart(_parentRigidbody2D.velocity, _forceApplyToBodyPart);
         }
+
         if (collision.CompareTag("Bomb"))
         {
-            collision.GetComponent<Rigidbody2D>().bodyType = RigidbodyType2D.Static;
             collision.GetComponent<TNTController>().TriggerBomb();
         }
+
     }
 }

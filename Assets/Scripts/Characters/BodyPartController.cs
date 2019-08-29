@@ -8,7 +8,7 @@ public class BodyPartController : MonoBehaviour {
     protected float _initAngle;
 
     [SerializeField]
-    protected BodyController _centerBody;
+    protected CenterBodypartController _centerBody;
 
     protected float _upperAngle;
     protected float _lowerAngle;
@@ -51,7 +51,7 @@ public class BodyPartController : MonoBehaviour {
             SetJointLimit(_upperAngle, _lowerAngle);
     }
 
-    public BodyController GetBodyController()
+    public CenterBodypartController GetCenterBodyPart()
     {
         return _centerBody;
     }

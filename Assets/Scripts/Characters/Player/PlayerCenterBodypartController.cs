@@ -2,11 +2,11 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class PlayerBodyController : BodyController {
+public class PlayerCenterBodypartController : CenterBodypartController {
     [SerializeField]
     protected RotateHandByTouch _handGun;
 
-    public new void ChangeCharacterToDynamic(Transform body)
+    public new void OnCharacterDie(Transform body)
     {
         if (_isDead)
             return;
@@ -21,7 +21,7 @@ public class PlayerBodyController : BodyController {
                 temp.GetComponent<BodyPartController>().ReturnJointToNormalState();
             }
             temp.GetComponent<Rigidbody2D>().bodyType = RigidbodyType2D.Dynamic;
-            ChangeCharacterToDynamic(temp);
+            OnCharacterDie(temp);
         }
     }
 }

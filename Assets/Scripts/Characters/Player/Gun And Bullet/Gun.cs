@@ -4,9 +4,6 @@ using UnityEngine;
 
 public class Gun : MonoBehaviour {
     [SerializeField]
-    private int _numOfBullet;
-
-    [SerializeField]
     private GameObject _bulletPrefab;
 
     [SerializeField]
@@ -15,8 +12,7 @@ public class Gun : MonoBehaviour {
     [SerializeField]
     private Transform _gunPoint;
 
-    [SerializeField]
-    private float _force;
+    
 
     [SerializeField]
     private float _bulletInitAngle;
@@ -24,18 +20,28 @@ public class Gun : MonoBehaviour {
     [SerializeField]
     private float _gunInitAngle;
 
-    private float _bulletRotateAngle;
+    private LevelPrefabController _levelController;
+    
     private bool _isAiming;
     private bool _isFiring;
+    private bool _isDead;
+
+
+    private int _numOfBullet;
+    private float _bulletRotateAngle;
+    private float _force;
 
     // Use this for initialization
     void Start () {
         _bulletRotateAngle = _bulletInitAngle - _gunInitAngle;
+        _levelController = transform.parent.parent.parent.GetComponent<LevelPrefabController>();
 
     }
 
     private void Update()
     {
+        if (_numOfBullet <= 0 || _isDead)
+            return;
         if(Input.GetKeyDown(KeyCode.Mouse0))
         {
             _isAiming = true;
@@ -77,11 +83,22 @@ public class Gun : MonoBehaviour {
         tempAngle = Quaternion.Euler(temp);
         GameObject bullet = Instantiate(_bulletPrefab, _gunPoint.position, tempAngle);
         bullet.GetComponent<BulletController>().Shoot(_force);
+        _levelController.OnFiringBullet();
     }
 
     public void SetNumOfBullet(int bullets)
     {
         this._numOfBullet = bullets;
+    }
+
+    public void OnPlayerDie()
+    {
+        _isDead = true;
+    }
+
+    public void SetGunForce(float gunForce)
+    {
+        _force = gunForce;
     }
 }
 
