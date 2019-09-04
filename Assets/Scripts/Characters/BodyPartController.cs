@@ -4,37 +4,57 @@ using UnityEngine;
 
 public class BodyPartController : MonoBehaviour {
 
-    [SerializeField]
-    private float _initAngle;
+    //[SerializeField]
+    //protected float _initAngle;
 
-    private float _upperAngle;
-    private float _lowerAngle;
-    private HingeJoint2D _bodyJoint;
+    [SerializeField]
+    protected CenterBodypartController _centerBody;
+
+    protected float _upperAngle;
+    protected float _lowerAngle;
+    protected HingeJoint2D _bodyJoint;
+    protected Rigidbody2D _rb2d;
 
 	void Start () {
         _bodyJoint = gameObject.GetComponent<HingeJoint2D>();
+        _rb2d = gameObject.GetComponent<Rigidbody2D>();
+
         if (!_bodyJoint)
             return;
         _upperAngle = _bodyJoint.limits.max;
         _lowerAngle = _bodyJoint.limits.min;
         ChangeJointLimitBaseOnRotation();
-        SetJointLimit(_initAngle, _initAngle);
+        //SetJointLimit(_initAngle, _initAngle);
+
     }
 
-    private void SetJointLimit(float upper, float lower)
+    protected void OnCollisionEnter2D(Collision2D collision)
     {
-        JointAngleLimits2D temp = new JointAngleLimits2D();
-        temp.max = upper;
-        temp.min = lower;
+        if (collision.transform.CompareTag("Terrain"))
+        {
+            if(_rb2d.velocity.magnitude >= _centerBody.GetMinVelToDie())
+            {
+                _centerBody.OnCharacterDie(transform.parent);
+            }
+        }
+    }
+
+    protected void SetJointLimit(float upper, float lower)
+    {
+        JointAngleLimits2D temp = new JointAngleLimits2D
+        {
+            max = upper,
+            min = lower
+        };
         _bodyJoint.limits = temp;
     }
 
-    private void ChangeJointLimitBaseOnRotation()
+    protected void ChangeJointLimitBaseOnRotation()
     {
         float angleRotation = transform.rotation.eulerAngles.z;
         if (angleRotation > 180)
             angleRotation -= 360;
-        _initAngle += angleRotation;
+        //_initAngle += angleRotation;
         _upperAngle += angleRotation;
         _lowerAngle += angleRotation;
     }
@@ -43,4 +63,16 @@ public class BodyPartController : MonoBehaviour {
         if (_bodyJoint != null)
             SetJointLimit(_upperAngle, _lowerAngle);
     }
+
+    public CenterBodypartController GetCenterBodyPart()
+    {
+        return _centerBody;
+    }
+
+    public void ApplyForceToThisBodyPart(Vector2 direction, float force)
+    {
+        _rb2d.AddForce(direction * force);
+    }
 }
+
+

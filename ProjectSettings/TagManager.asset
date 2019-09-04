@@ -9,6 +9,10 @@ TagManager:
   - Bomb
   - Body Part
   - Player Body Part
+  - Bullet
+  - Bullet Direction
+  - Wooden Box
+  - Stone
   layers:
   - Default
   - TransparentFX
@@ -19,14 +23,14 @@ TagManager:
   - 
   - 
   - Player
-  - 
-  - 
-  - 
-  - 
-  - 
-  - 
-  - 
-  - 
+  - Character
+  - Bullet
+  - Terrain
+  - Bomb
+  - Wooden Box
+  - Stone
+  - EffectZone
+  - Bullet Direction
   - 
   - 
   - 
@@ -48,4 +52,10 @@ TagManager:
     locked: 0
   - name: Player
     uniqueID: 775362613
+    locked: 0
+  - name: Body
+    uniqueID: 890920053
+    locked: 0
+  - name: Bullet
+    uniqueID: 2827162113
     locked: 0
