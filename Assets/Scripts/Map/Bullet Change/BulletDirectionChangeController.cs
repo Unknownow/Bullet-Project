@@ -15,6 +15,9 @@ public class BulletDirectionChangeController : MonoBehaviour {
     [SerializeField]
     private GameObject _bulletPrefab;
 
+    [SerializeField]
+    private GameObject _arrowPrefab;
+
     private Vector2 _oldVelocity;
     private Vector2[] _startingPos;
     private Collider2D _collider2D;
@@ -26,6 +29,9 @@ public class BulletDirectionChangeController : MonoBehaviour {
         for(int i = 0; i < _angleOfEachBullet.Length; i++)
         {
             _startingPos[i] = GetPositionToSpawnBullet(_angleOfEachBullet[i] * Mathf.Deg2Rad);
+
+            Vector2 direction = GetPositionToSpawnBullet(_angleOfEachBullet[i] * Mathf.Deg2Rad) - (Vector2)transform.position;
+            Instantiate(_arrowPrefab, transform.position, Quaternion.FromToRotation(Vector2.up, direction), transform);
         }
     }
 

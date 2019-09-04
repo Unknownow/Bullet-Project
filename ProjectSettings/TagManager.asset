@@ -10,8 +10,9 @@ TagManager:
   - Body Part
   - Player Body Part
   - Bullet
-  - Box
   - Bullet Direction
+  - Wooden Box
+  - Stone
   layers:
   - Default
   - TransparentFX
@@ -24,10 +25,10 @@ TagManager:
   - Player
   - Character
   - Bullet
-  - Wall
+  - Terrain
   - Bomb
-  - WoodenBox
-  - Box
+  - Wooden Box
+  - Stone
   - EffectZone
   - Bullet Direction
   - 

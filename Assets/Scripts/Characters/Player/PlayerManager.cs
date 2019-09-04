@@ -5,6 +5,9 @@ using UnityEngine;
 public class PlayerManager : CharacterManager {
 
     [SerializeField]
+    private bool _isFriendlyFire;
+
+    [SerializeField]
     private GameObject _gun;
 
     [SerializeField]
@@ -27,5 +30,10 @@ public class PlayerManager : CharacterManager {
         _isDead = true;
         transform.parent.GetComponent<LevelPrefabController>().OnPlayerKilled();
         _gun.GetComponent<Gun>().OnPlayerDie();
+    }
+
+    public bool GetIsFriendlyFire()
+    {
+        return _isFriendlyFire;
     }
 }

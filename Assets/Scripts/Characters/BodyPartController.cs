@@ -4,8 +4,8 @@ using UnityEngine;
 
 public class BodyPartController : MonoBehaviour {
 
-    [SerializeField]
-    protected float _initAngle;
+    //[SerializeField]
+    //protected float _initAngle;
 
     [SerializeField]
     protected CenterBodypartController _centerBody;
@@ -24,15 +24,28 @@ public class BodyPartController : MonoBehaviour {
         _upperAngle = _bodyJoint.limits.max;
         _lowerAngle = _bodyJoint.limits.min;
         ChangeJointLimitBaseOnRotation();
-        SetJointLimit(_initAngle, _initAngle);
+        //SetJointLimit(_initAngle, _initAngle);
 
+    }
+
+    protected void OnCollisionEnter2D(Collision2D collision)
+    {
+        if (collision.transform.CompareTag("Terrain"))
+        {
+            if(_rb2d.velocity.magnitude >= _centerBody.GetMinVelToDie())
+            {
+                _centerBody.OnCharacterDie(transform.parent);
+            }
+        }
     }
 
     protected void SetJointLimit(float upper, float lower)
     {
-        JointAngleLimits2D temp = new JointAngleLimits2D();
-        temp.max = upper;
-        temp.min = lower;
+        JointAngleLimits2D temp = new JointAngleLimits2D
+        {
+            max = upper,
+            min = lower
+        };
         _bodyJoint.limits = temp;
     }
 
@@ -41,7 +54,7 @@ public class BodyPartController : MonoBehaviour {
         float angleRotation = transform.rotation.eulerAngles.z;
         if (angleRotation > 180)
             angleRotation -= 360;
-        _initAngle += angleRotation;
+        //_initAngle += angleRotation;
         _upperAngle += angleRotation;
         _lowerAngle += angleRotation;
     }

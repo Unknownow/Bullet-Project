@@ -6,22 +6,27 @@ public class PlayerCenterBodypartController : CenterBodypartController {
     [SerializeField]
     protected RotateHandByTouch _handGun;
 
-    public new void OnCharacterDie(Transform body)
+    public new void OnCharacterDie(Transform transformOfCharacter)
     {
         if (_isDead)
             return;
         _isDead = true;
         transform.parent.GetComponent<CharacterManager>().OnCharacterDie();
         _handGun.enabled = false;
-        for (int i = 0; i < body.childCount; i++)
+        for (int i = 0; i < transformOfCharacter.childCount; i++)
         {
-            Transform temp = body.GetChild(i);
-            if (temp.GetComponent<BodyPartController>() != null)
+            Transform bodyPart = transformOfCharacter.GetChild(i);
+            BodyPartController bodyPartController;
+            Rigidbody2D bodyPartRB2D;
+            if (bodyPartController = bodyPart.GetComponent<BodyPartController>())
             {
-                temp.GetComponent<BodyPartController>().ReturnJointToNormalState();
+                bodyPartController.ReturnJointToNormalState();
             }
-            temp.GetComponent<Rigidbody2D>().bodyType = RigidbodyType2D.Dynamic;
-            OnCharacterDie(temp);
+            if (bodyPartRB2D = bodyPart.GetComponent<Rigidbody2D>())
+            {
+                bodyPartRB2D.bodyType = RigidbodyType2D.Dynamic;
+            }
+            OnCharacterDie(bodyPart);
         }
     }
 }

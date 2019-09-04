@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class BoxController : MonoBehaviour {
+public class StoneController : MonoBehaviour {
 
     [SerializeField]
     private float _minVelocityToKill;
@@ -18,8 +18,9 @@ public class BoxController : MonoBehaviour {
     {
         if(collision.transform.CompareTag("Body Part"))
         {
-            if(Mathf.Sqrt(Mathf.Pow(_boxBody.velocity.x, 2) + Mathf.Pow(_boxBody.velocity.y, 2)) >= _minVelocityToKill)
+            if (_boxBody.velocity.magnitude >= _minVelocityToKill)
             {
+                Debug.Log(_boxBody.velocity.magnitude);
                 CenterBodypartController centerBody = collision.transform.GetComponent<BodyPartController>().GetCenterBodyPart();
                 centerBody.OnCharacterDie(centerBody.transform.parent);
             }

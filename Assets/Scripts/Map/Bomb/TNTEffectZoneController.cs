@@ -22,9 +22,13 @@ public class TNTEffectZoneController : MonoBehaviour {
                 temp.OnCollideExplosion(transform.position, _forceValueOnBody);
             }
         }
-        if (collision.CompareTag("Box"))
+        if (collision.CompareTag("Stone"))
         {
             collision.GetComponent<ExplosionOnObject>().OnCollideExplosion(transform.position, _forceValueOnBox);
+        }
+        if (collision.CompareTag("Wooden Box"))
+        {
+            collision.GetComponent<WoodenBoxController>().OnWoodenBoxDestroyed();
         }
     }
 
@@ -40,10 +44,11 @@ public class TNTEffectZoneController : MonoBehaviour {
                 temp.ReturnToNormalState();
             }
         }
-        if (collision.CompareTag("Box"))
+        if (collision.CompareTag("Stone"))
         {
             collision.GetComponent<ExplosionOnObject>().ReturnToNormalState();
         }
+        
     }
 
     /*

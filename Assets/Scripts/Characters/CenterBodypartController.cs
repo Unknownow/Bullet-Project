@@ -3,24 +3,38 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class CenterBodypartController : MonoBehaviour {
+    
+    protected float _minVelToDie;
     protected bool _isDead;
     protected bool _isDynamic;
+
+    private void Start()
+    {
+        _minVelToDie = transform.parent.GetComponent<CharacterManager>().GetMinVelToDie();
+    }
 
     public void OnCharacterDie(Transform transformOfCharacter)
     {
         if (_isDead)
             return;
+        Debug.Log("DIE!");
         _isDead = true;
         _isDynamic = true;
         transform.parent.GetComponent<CharacterManager>().OnCharacterDie();
         for (int i = 0; i < transformOfCharacter.childCount; i++)
         {
             Transform bodyPart = transformOfCharacter.GetChild(i);
-            if (bodyPart.GetComponent<BodyPartController>() != null)
+            BodyPartController bodyPartController;
+            Rigidbody2D bodyPartRB2D;
+            if (bodyPartController = bodyPart.GetComponent<BodyPartController>())
             {
-                bodyPart.GetComponent<BodyPartController>().ReturnJointToNormalState();
+                bodyPartController.ReturnJointToNormalState();
             }
-            bodyPart.GetComponent<Rigidbody2D>().bodyType = RigidbodyType2D.Dynamic;
+            if(bodyPartRB2D = bodyPart.GetComponent<Rigidbody2D>())
+            {
+                bodyPartRB2D.bodyType = RigidbodyType2D.Dynamic;
+                bodyPartRB2D.gravityScale = transform.parent.GetComponent<CharacterManager>().GetGravityScaleForBodyParts();
+            }
             OnCharacterDie(bodyPart); 
         }
     }
@@ -33,12 +47,23 @@ public class CenterBodypartController : MonoBehaviour {
         for (int i = 0; i < transformOfCharacter.childCount; i++)
         {
             Transform bodyPart = transformOfCharacter.GetChild(i);
-            if (bodyPart.GetComponent<BodyPartController>() != null)
+            BodyPartController bodyPartController;
+            Rigidbody2D bodyPartRB2D;
+            if (bodyPartController = bodyPart.GetComponent<BodyPartController>())
             {
-                bodyPart.GetComponent<BodyPartController>().ReturnJointToNormalState();
+                bodyPartController.ReturnJointToNormalState();
             }
-            bodyPart.GetComponent<Rigidbody2D>().bodyType = RigidbodyType2D.Dynamic;
+            if (bodyPartRB2D = bodyPart.GetComponent<Rigidbody2D>())
+            {
+                bodyPartRB2D.bodyType = RigidbodyType2D.Dynamic;
+                bodyPartRB2D.gravityScale = transform.parent.GetComponent<CharacterManager>().GetGravityScaleForBodyParts();
+            }
             OnChangeCharacterToDynamic(bodyPart);
         }
+    }
+
+    public float GetMinVelToDie()
+    {
+        return _minVelToDie;
     }
 }
