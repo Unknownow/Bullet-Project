@@ -13,6 +13,7 @@ TagManager:
   - Bullet Direction
   - Wooden Box
   - Stone
+  - Teleport
   layers:
   - Default
   - TransparentFX
@@ -31,7 +32,7 @@ TagManager:
   - Stone
   - EffectZone
   - Bullet Direction
-  - 
+  - Teleport
   - 
   - 
   - 

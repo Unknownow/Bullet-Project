@@ -28,9 +28,9 @@ public class BulletDirectionChangeController : MonoBehaviour {
         _startingPos = new Vector2[_angleOfEachBullet.Length];
         for(int i = 0; i < _angleOfEachBullet.Length; i++)
         {
-            _startingPos[i] = GetPositionToSpawnBullet(_angleOfEachBullet[i] * Mathf.Deg2Rad);
+            _startingPos[i] = GetPositionToSpawnBullet(_angleOfEachBullet[i]);
 
-            Vector2 direction = GetPositionToSpawnBullet(_angleOfEachBullet[i] * Mathf.Deg2Rad) - (Vector2)transform.position;
+            Vector2 direction = GetPositionToSpawnBullet(_angleOfEachBullet[i]) - (Vector2)transform.position;
             Instantiate(_arrowPrefab, transform.position, Quaternion.FromToRotation(Vector2.up, direction), transform);
         }
     }
@@ -40,7 +40,7 @@ public class BulletDirectionChangeController : MonoBehaviour {
         Gizmos.color = Color.red;
         for (int i = 0; i < _angleOfEachBullet.Length; i++)
         {
-            Gizmos.DrawLine(transform.position, GetPositionToSpawnBullet(_angleOfEachBullet[i] * Mathf.Deg2Rad));
+            Gizmos.DrawLine(transform.position, GetPositionToSpawnBullet(_angleOfEachBullet[i]));
         }
     }
 
@@ -60,6 +60,7 @@ public class BulletDirectionChangeController : MonoBehaviour {
 
     private Vector2 GetPositionToSpawnBullet(float angle)
     {
+        angle *= Mathf.Deg2Rad;
         return transform.position + (transform.right * Mathf.Cos(angle) + transform.up * Mathf.Sin(angle)) * _radiusForBulletOut;
     }
 
@@ -69,7 +70,7 @@ public class BulletDirectionChangeController : MonoBehaviour {
         currentDirectionChangesCount += 1;
         for(int i = 0; i < _angleOfEachBullet.Length; i++)
         {
-            Vector2 direction = GetPositionToSpawnBullet(_angleOfEachBullet[i] * Mathf.Deg2Rad) - (Vector2)transform.position;
+            Vector2 direction = GetPositionToSpawnBullet(_angleOfEachBullet[i]) - (Vector2)transform.position;
             GameObject bullet = Instantiate(_bulletPrefab, _startingPos[i], Quaternion.FromToRotation(Vector2.up, direction));
 
             BulletController bulletController = bullet.GetComponent<BulletController>();
